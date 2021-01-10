@@ -1,5 +1,5 @@
 {% set name = "menpo3d" %}
-{% set version = "0.8.0" %}
+{% set version = "0.8.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,16 +7,16 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: b369c2b30cba53cba758826bcb75960104ca4d1449f8262eb240f4861c22e58d
+  sha256: 63c0cbb7bc7a2c6b08b03a47d96b55d00a296817e5e7490060afe84801ffc264
 
 build:
-  number: 1
-  script: "{{ PYTHON }} -m pip install . -vv"
-  skip: True  # [win or py<35]
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [win or py<35]
 
 requirements:
   build:
-     - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}
 
   host:
     - python
@@ -40,7 +40,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
-  summary: 'The Menpo Project Python package for manipulating 3D meshes'
+  summary: The Menpo Project Python package for manipulating 3D meshes
 
 extra:
   recipe-maintainers:
