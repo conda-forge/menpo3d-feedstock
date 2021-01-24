@@ -1,5 +1,5 @@
 {% set name = "menpo3d" %}
-{% set version = "0.8.2" %}
+{% set version = "0.8.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: d654680e635c6c97c5a5f72f64318eb1030fcd28f2084dad827b2e8079900bd8
+  sha256: b467f50e84938478d341b98b4a8b8c96da78d5c5a050b66806a91f2b61c4eee8
 
 build:
   number: 0
