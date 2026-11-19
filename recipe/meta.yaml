@@ -1,51 +1,62 @@
 {% set name = "menpo3d" %}
-{% set version = "0.8.6" %}
+{% set version = "0.9.1" %}
+# menpo (a dependency) is noarch with python_min 3.11 on conda-forge, so the noarch test environment is
+# solved at 3.11 (upstream supports 3.10 on PyPI)
+{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 96ad2c8b55b74e026cdc190cf6b1564ad7c8e6c53976cf897d6a1bf4940f084a
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3a1cc6deac6d635a8110aff0c5b374f36c308d34fc3ff7c5d29150bc321ca84e
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [win or py<35]
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
-  build:
-    - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
-    - cython                                 # [build_platform != target_platform]
-    - python                                 # [build_platform != target_platform]
-    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
-    - numpy                                  # [build_platform != target_platform]
-
   host:
-    - python
-    - cython
-    - numpy
+    - python {{ python_min }}.*
     - pip
-
+    - setuptools >=77
+    - setuptools-scm >=8
   run:
-    - python
-    - {{ pin_compatible('numpy') }}
-    - mayavi
-    - menpo
-    - moderngl
+    - python >={{ python_min }}
+    - numpy >=1.23
+    - menpo >=0.12.1
+    - mayavi >=4.8
+    - moderngl >=5.6
+    - opencv
 
 test:
   imports:
     - menpo3d
+    - menpo3d.io
+    - menpo3d.rasterize
+    - menpo3d.correspond
+    - menpo3d.visualize
+    - menpo3d.morphablemodel
+  requires:
+    - python {{ python_min }}.*
+    - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/menpo/menpo3d
+  dev_url: https://github.com/menpo/menpo3d
+  doc_url: https://menpo3d.readthedocs.io/en/stable/
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE.txt
   summary: The Menpo Project Python package for manipulating 3D meshes
+  description: |
+    A library inside the Menpo Project that makes manipulating 3D mesh data a
+    simple task: importing, visualizing (with Mayavi) and rasterizing 3D
+    meshes, correspondence, and 3D morphable models.
 
 extra:
   recipe-maintainers:
