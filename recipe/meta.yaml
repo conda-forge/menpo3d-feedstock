@@ -1,5 +1,5 @@
 {% set name = "menpo3d" %}
-{% set version = "0.9.1" %}
+{% set version = "0.10.0" %}
 # menpo (a dependency) is noarch with python_min 3.11 on conda-forge, so the noarch test environment is
 # solved at 3.11 (upstream supports 3.10 on PyPI)
 {% set python_min = "3.11" %}
@@ -10,7 +10,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 3a1cc6deac6d635a8110aff0c5b374f36c308d34fc3ff7c5d29150bc321ca84e
+  sha256: 2afa594ca0800f2771891ddc87ca15bd1bfde23beb2e206b2b5eb7ab07fefe73
 
 build:
   number: 0
@@ -26,8 +26,8 @@ requirements:
   run:
     - python >={{ python_min }}
     - numpy >=1.23
+    - scipy >=1.0
     - menpo >=0.12.1
-    - mayavi >=4.8
     - moderngl >=5.6
     - opencv
 
@@ -55,8 +55,8 @@ about:
   summary: The Menpo Project Python package for manipulating 3D meshes
   description: |
     A library inside the Menpo Project that makes manipulating 3D mesh data a
-    simple task: importing, visualizing (with Mayavi) and rasterizing 3D
-    meshes, correspondence, and 3D morphable models.
+    simple task: importing, visualizing (with a moderngl viewer) and rasterizing
+    3D meshes, correspondence, and 3D morphable models.
 
 extra:
   recipe-maintainers:
