@@ -1,8 +1,5 @@
 {% set name = "menpo3d" %}
 {% set version = "0.10.0" %}
-# menpo (a dependency) is noarch with python_min 3.11 on conda-forge, so the noarch test environment is
-# solved at 3.11 (upstream supports 3.10 on PyPI)
-{% set python_min = "3.11" %}
 
 package:
   name: {{ name|lower }}
